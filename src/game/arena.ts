@@ -13,7 +13,7 @@ export class Arena {
 
     addEntity(entity: Entity, log = true) {
         if (log) {
-            console.log(`В игру врывается ${entity.name.kto} c ${entity.health} здоровья и ${entity.damage} урона!`);
+            //console.log(`В игру врывается ${entity.name.kto} c ${entity.health} здоровья и ${entity.damage} урона!`);
         }
         this.entities.push(entity);
     }
