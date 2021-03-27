@@ -10,7 +10,6 @@ module.exports = {
                 test: /\.ts$/,
                 use: 'ts-loader',
                 include: [path.resolve(__dirname, 'src')],
-                sideEffects: true
             }
         ]
     },
@@ -18,9 +17,6 @@ module.exports = {
         extensions: ['.ts', '.js']
     },
     output: {
-        library: 'Game',
-        libraryTarget: 'var',
-
         publicPath: 'public',
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'public'),
