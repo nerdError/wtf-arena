@@ -56,7 +56,7 @@ export class Entity {
         }
 
         // ОСКОРБЛЕНИЕ
-        if (bool(10) && this.arena.entities.length > 2) {
+        if (bool(5) && this.arena.entities.length > 2) {
             let target = this.arena.getRandomEntity([this])!;
             let target2 = this.arena.getRandomEntity([this, target])!;
 
@@ -110,13 +110,13 @@ export class Entity {
         }
 
         // ВСПОМНИЛ И ЗАПЛАКАЛ
-        if (bool(3) && this.arena.died.length > 0) {
+        if (bool(1) && this.arena.died.length > 0) {
             let died = choose(this.arena.died)
             console.log(`${this.name.kto}: "О ${died.name.kto}, как мне тебя не хватает!"`);
         }
 
         // АТАКА
-        if (bool(50)) {
+        if (bool(90)) {
             let target = this.arena.getRandomEntity([this]);
             if (target) {
                 target.doDamage(randomInt(this.damage + 1), this);
