@@ -40,7 +40,7 @@ export class Entity {
 
     doAction() {
         // РЕБЁНОК
-        if (bool(2)) {
+        if (bool(1)) {
             let parent = this.arena.getRandomEntity([this])!;
             let name: EntityName = JSON.parse(JSON.stringify(this.name));
             //console.log(parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2)));
@@ -144,6 +144,10 @@ export class Entity {
 
         this.health -= damage;
         if (this.health <= 0) {
+            if (bool(20)) {
+                let insult = choose(insults);
+                console.log(`${attacker.name.kto}: "Я верил тебе, ${this.name.kto}, а ты оказался ${insult.kem}"`);
+            }
             console.log(`${attacker.name.kto} убил ${this.name.kogo}, нанеся ${damage} урона`);
 
             let didRevive = bool(15);

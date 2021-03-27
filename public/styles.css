@@ -10,6 +10,11 @@ label {
     align-items: center;
 }
 
+#version {
+    color: #ffbfbf;
+    text-align: center;
+}
+
 div div:nth-child(odd) {
     background-color: #575757;
 }
