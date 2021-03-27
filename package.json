@@ -4,25 +4,29 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "live": "webpack-dev-server",
     "serve": "webpack serve",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "ts-loader": "^8.0.3",
-    "typescript": "^4.0.2",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
-  },
   "dependencies": {
     "@types/lodash": "^4.14.161",
     "break_infinity.js": "^1.2.0",
     "class-transformer": "^0.3.1",
     "lodash": "^4.17.20",
     "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.2.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.18",
+    "typescript": "^4.2.3",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
