@@ -10,12 +10,6 @@ label {
     align-items: center;
 }
 
-/*div:nth-child (odd) {*/
-/*    background-color: #5e5e5e;*/
-/*}*/
-/*div:nth-child (even) {*/
-/*    background-color: darkslategray;*/
-/*}*/
 div div:nth-child(odd) {
     background-color: #575757;
 }

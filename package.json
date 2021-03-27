@@ -6,7 +6,7 @@
   "scripts": {
     "live": "webpack-dev-server",
     "serve": "webpack serve",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
