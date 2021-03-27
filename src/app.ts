@@ -9,10 +9,11 @@ export function main() {
     let baseDamage = 5;
 
     let data = jsonNames.names as { [key: string]: EntityName }
-    for (const name of Object.values(data)) {
+    for (const key in data) {
+        const name = data[key];
         let health = baseHealth + randomIntRange(-baseHealth, baseHealth);
         let damage = baseDamage + randomIntRange(-baseDamage, baseDamage);
-        arena.entities.push(new Entity(arena, health, damage, name))
+        arena.entities.push(new Entity(arena, health, damage, Object.assign({ kto: key }, name)));
     }
 
     let loops = 10;
