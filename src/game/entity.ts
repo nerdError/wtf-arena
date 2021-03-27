@@ -112,7 +112,7 @@ export class Entity {
         // ВСПОМНИЛ И ЗАПЛАКАЛ
         if (bool(1) && this.arena.died.length > 0) {
             let died = choose(this.arena.died)
-            console.log(`${this.name.kto}: "О ${died.name.kto}, как мне тебя не хватает!"`);
+            console.log(`${this.name.kto}: "${died.name.kto}, как жаль что ты не дожил до этого"`);
         }
 
         // АТАКА
@@ -129,7 +129,7 @@ export class Entity {
     doDamage(damage: number, attacker: Entity) {
         let didEvasion = bool(30);
         if (didEvasion) {
-            console.log(`${this.name.kto} уклонился от атаки ${attacker.name.otKogo}`);
+            //console.log(`${this.name.kto} уклонился от атаки ${attacker.name.otKogo}`);
             return;
         }
         if (damage >= this.health) {
@@ -146,7 +146,7 @@ export class Entity {
         if (this.health <= 0) {
             if (bool(20)) {
                 let insult = choose(insults);
-                console.log(`${attacker.name.kto}: "Я верил тебе, ${this.name.kto}, а ты оказался ${insult.kem}"`);
+                console.log(`${this.name.kto}: "Я верил тебе, ${attacker.name.kto}, а ты оказался ${insult.kem}"`);
             }
             console.log(`${attacker.name.kto} убил ${this.name.kogo}, нанеся ${damage} урона`);
 
