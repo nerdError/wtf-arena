@@ -16,3 +16,8 @@ export function bool(chance: number): boolean {
     let n = randomInt(100);
     return n <= chance;
 }
+
+export function choose<T>(array: T[]): T {
+    let index = randomInt(array.length);
+    return array[index];
+}
