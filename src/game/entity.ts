@@ -45,7 +45,7 @@ export class Entity {
         }
 
         // РЕБЁНОК
-        if (bool(1)) {
+        if (bool(2)) {
             let parent = this.arena.getRandomEntity([this])!;
             let name: EntityName = JSON.parse(JSON.stringify(this.name));
             //printText(parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2)));
@@ -60,7 +60,7 @@ export class Entity {
         }
 
         // ОСКОРБЛЕНИЕ
-        if (bool(3) && this.arena.entities.length > 2) {
+        if (bool(5) && this.arena.entities.length > 2) {
             let target = this.arena.getRandomEntity([this])!;
             let target2 = this.arena.getRandomEntity([this, target])!;
 
@@ -72,7 +72,7 @@ export class Entity {
         }
 
         // СУИЦИД
-        if (bool(3)) {
+        if (bool(4)) {
             // УДАЛОСЬ ЛИ СОВЕРШИТЬ
             if (bool(50)) {
                 printText(`${this.name.komu} удалось убить себя :(`);
@@ -117,7 +117,7 @@ export class Entity {
         }
 
         // ВСПОМНИЛ И ЗАПЛАКАЛ
-        if (bool(1) && this.arena.died.length > 0) {
+        if (bool(2) && this.arena.died.length > 0) {
             let died = choose(this.arena.died)
             let text = choose([
                 "как жаль что",
@@ -128,7 +128,7 @@ export class Entity {
         }
 
         // АТАКА
-        if (bool(90)) {
+        if (bool(70)) {
             let target = this.arena.getRandomEntity([this]);
             if (target) {
                 target.doDamage(randomInt(this.damage) + 1, this);

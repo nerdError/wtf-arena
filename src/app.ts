@@ -67,7 +67,7 @@ export async function main() {
     }
 
     let arena = new Arena();
-    let baseHealth = 10;
+    let baseHealth = 5;
     let baseDamage = 3;
 
     for (const name of names) {
@@ -78,6 +78,11 @@ export async function main() {
 
     let loops = 1000;
     while(arena.loop < loops) {
+        if (arena.entities.length == 1) {
+            printText(`\n${arena.entities[0].name.kto.toUpperCase()} ПОБЕДИЛ!\n\n\n`);
+
+            return;
+        }
         await arena.doLoop()
     }
 }
