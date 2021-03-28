@@ -1,6 +1,6 @@
 import { bool, choose, randomInt, spliceStr } from "./utils/random";
 import { Arena } from "./arena";
-import { insults } from "../app";
+import { insults, printText } from "../app";
 
 export type EntityName = {
     kto: string,
@@ -48,32 +48,34 @@ export class Entity {
         if (bool(1)) {
             let parent = this.arena.getRandomEntity([this])!;
             let name: EntityName = JSON.parse(JSON.stringify(this.name));
-            //console.log(parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2)));
+            //printText(parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2)));
             for (let key in this.name) {
                 let value = this.name[key as keyof EntityName];
                 (<any>name)[key] = spliceStr(value, value.indexOf(">")+1, 0, "Микро-");
                 //todo (<any>name)[key] = parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2))
             }
-            console.log(`${this.name.kto} родил сына от ${parent.name.otKogo}, которого зовут ${name.kto}!`);
+            printText(`${this.name.kto} родил сына от ${parent.name.otKogo}, которого зовут ${name.kto}!`);
             this.arena.addEntity(new Entity(this.arena, Math.round(this.health / 2), Math.round(this.damage / 2), name), false);
+            return;
         }
 
         // ОСКОРБЛЕНИЕ
-        if (bool(5) && this.arena.entities.length > 2) {
+        if (bool(3) && this.arena.entities.length > 2) {
             let target = this.arena.getRandomEntity([this])!;
             let target2 = this.arena.getRandomEntity([this, target])!;
 
-            console.log(choose([
+            printText(choose([
                 `${this.name.kto}: "${target.name.kto}, всё с тобой ясно, ты такой же как ${target2.name.kto}"`,
                 `${this.name.kto}: "${target.name.kto}, ТЫ ${choose(insults).kto.toUpperCase()}!"`,
             ]));
+            return;
         }
 
         // СУИЦИД
         if (bool(3)) {
             // УДАЛОСЬ ЛИ СОВЕРШИТЬ
             if (bool(50)) {
-                console.log(`${this.name.komu} удалось убить себя :(`);
+                printText(`${this.name.komu} удалось убить себя :(`);
 
                 let didRevive = bool(15);
                 if (!didRevive) {
@@ -83,33 +85,35 @@ export class Entity {
                 else {
                     this.health = 1;
                     this.health += randomInt(this.baseHealth / 2);
-                    console.log(`...но ${this.name.kto} возродился с ${this.health} здоровья!`);
+                    printText(`...но ${this.name.kto} возродился с ${this.health} здоровья!`);
                 }
             }
             else {
-                console.log(`${this.name.kto} пытался убить себя, но у него не получилось :)`);
+                printText(`${this.name.kto} пытался убить себя, но у него не получилось :)`);
             }
+            return;
         }
 
         // ЛЕЧЕНИЕ
-        if (bool(10)) {
+        if (bool(5)) {
             let heal = randomInt(this.baseHealth * 0.7) + 1;
             this.health += heal;
-            //console.log(`${this.name.kto} полечился и получил ${heal} здоровья (всего: ${this.health})`);
+            printText(`${this.name.kto} полечился и получил ${heal} здоровья (всего: ${this.health})`);
+            return;
         }
 
         // ПОБЕГ
-        if (bool(2)) {
+        if (bool(1)) {
             // ПОЙМАЛ ЛИ КТО-ТО
             if (bool(50) && this.arena.entities.length > 1) {
                 let target = this.arena.getRandomEntity([this]);
-                console.log(`${this.name.kto} пытался трусливо сбежать, но ${target?.name.kto} не дал ему уйти!`)
+                printText(`${this.name.kto} пытался трусливо сбежать, но ${target?.name.kto} не дал ему уйти!`)
             }
             else {
-                console.log(`${this.name.kto} трусливо сбежал с поля боя!`)
+                printText(`${this.name.kto} трусливо сбежал с поля боя!`)
                 this.arena.removeEntity(this);
-                return;
             }
+            return;
         }
 
         // ВСПОМНИЛ И ЗАПЛАКАЛ
@@ -119,24 +123,26 @@ export class Entity {
                 "как жаль что",
                 "слава богу"
             ])
-            console.log(`${this.name.kto}: "${died.name.kto}, ${text} ты не дожил до этого"`);
+            printText(`${this.name.kto}: "${died.name.kto}, ${text} ты не дожил до этого"`);
+            return;
         }
 
         // АТАКА
         if (bool(90)) {
             let target = this.arena.getRandomEntity([this]);
             if (target) {
-                target.doDamage(randomInt(this.damage + 1), this);
+                target.doDamage(randomInt(this.damage) + 1, this);
             } else {
-                console.log(`${this.name.kto} не смог найти себе цель для атаки`);
+                printText(`${this.name.kto} не смог найти себе цель для атаки`);
             }
+            return;
         }
     }
 
     doDamage(damage: number, attacker: Entity) {
         let didEvasion = bool(30);
         if (didEvasion) {
-            //console.log(`${this.name.kto} уклонился от атаки ${attacker.name.otKogo}`);
+            printText(`${this.name.kto} уклонился от атаки ${attacker.name.otKogo}`);
             return;
         }
         if (damage >= this.health) {
@@ -144,7 +150,7 @@ export class Entity {
             if (didForgive && this.arena.entities.length > 2) {
                 let word = bool(50) ? "ненавидит" : "любит";
                 let target = this.arena.getRandomEntity([this, attacker])!;
-                console.log(`${attacker.name.kto} мог убить ${this.name.kogo}, но ${this.name.kto} сказал что ${word} ${target.name.kogo}, и тот его пощадил`);
+                printText(`${attacker.name.kto} мог убить ${this.name.kogo}, но ${this.name.kto} сказал что ${word} ${target.name.kogo}, и тот его пощадил`);
                 return;
             }
         }
@@ -157,9 +163,9 @@ export class Entity {
                     `Я верил тебе, ${attacker.name.kto}, а ты оказался ${insult.kem}`,
                     `${attacker.name.kto}, я так и знал, что ты ${insult.kto}`
                 ])
-                console.log(`${this.name.kto}: "${text}"`);
+                printText(`${this.name.kto}: "${text}"`);
             }
-            console.log(`${attacker.name.kto} убил ${this.name.kogo}, нанеся ${damage} урона`);
+            printText(`${attacker.name.kto} убил ${this.name.kogo}, нанеся ${damage} урона`);
 
             let didRevive = bool(15);
             if (!didRevive) {
@@ -168,11 +174,11 @@ export class Entity {
             else {
                 this.health = 1;
                 this.health += randomInt(this.baseHealth / 2);
-                console.log(`...но ${this.name.kto} возродился с ${this.health} здоровья!`);
+                printText(`...но ${this.name.kto} возродился с ${this.health} здоровья!`);
             }
         }
         else {
-            //console.log(`${attacker.name.kto} нанес ${damage} урона ${this.name.komu}, и теперь у него ${this.health} здоровья!`);
+            printText(`${attacker.name.kto} нанес ${damage} урона ${this.name.komu}, и теперь у него ${this.health} здоровья!`);
         }
     }
 }

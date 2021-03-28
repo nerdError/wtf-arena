@@ -11,14 +11,13 @@ const json: {
 let div: HTMLDivElement;
 let text: HTMLLabelElement;
 
-const backConsoleLog = console.log;
+//const backConsoleLog = console.log;
 
-console.log = (...data: any[]) => {
+export function printText(str: string, color?: string) {
     //backConsoleLog(...data);
     let subDiv = document.createElement('div');
     let label = document.createElement('label');
-    //label.innerHTML = data.toString();
-    label.innerHTML = `<p>${data.toString()}</p>`;
+    label.innerHTML = `<p class="cool-text">${str}</p>`;
 
     subDiv.appendChild(label);
     div.appendChild(subDiv);
@@ -31,12 +30,13 @@ export let names: EntityName[] = []
 const version = "3:20, 28.03.2021"
 
 
-export function main() {
+export async function main() {
     text = document.getElementById("text") as HTMLLabelElement;
     div = document.getElementById("div") as HTMLDivElement;
 
     let versionText = document.createElement('label');
     versionText.id = "version";
+    versionText.className = "cool-text"
     versionText.innerText = "WTF Arena\nПоследнее обновление: " + version + "\n\n";
 
     div.appendChild(versionText);
@@ -49,13 +49,16 @@ export function main() {
 
     let h = 0;
 
+    const exceptions = [ "Димон", "Обэма", "" ]
     for (const key in json.names) {
         const value = json.names[key];
+        if (exceptions.includes(key)) continue;
+
         let name = Object.assign({ kto: key }, value);
         for (const nameKey in name) {
             const nameValue = name[nameKey as keyof EntityName];
-            let s = "#bb9292";
-            let color = Color.hsv([h, 25, 90])
+            let s = "#ad9696";
+            let color = Color.hsv([h, 15, 90]); //[h, 25, 90]
             name[nameKey as keyof EntityName] = `<b style="color: ${color}">${nameValue}</b>`
         }
 
@@ -70,17 +73,12 @@ export function main() {
     for (const name of names) {
         let health = baseHealth + randomIntRange(-baseHealth, baseHealth);
         let damage = baseDamage + randomIntRange(-baseDamage, baseDamage);
-        arena.addEntity(new Entity(arena, health, damage, name));
+        arena.addEntity(new Entity(arena, health, damage, name), false);
     }
 
     let loops = 1000;
     while(arena.loop < loops) {
-        if (arena.entities.length == 1) {
-            console.log(`\n${arena.entities[0].name.kto.toUpperCase()} ПОБЕДИЛ!\n\n\n`);
-
-            return;
-        }
-        arena.doLoop();
+        await arena.doLoop()
     }
 }
 

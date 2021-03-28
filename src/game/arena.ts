@@ -1,5 +1,6 @@
 import { Entity } from "./entity";
 import { randomInt } from "./utils/random";
+import { printText } from "../app";
 
 export class Arena {
     public loop: number = 0;
@@ -13,7 +14,7 @@ export class Arena {
 
     addEntity(entity: Entity, log = true) {
         if (log) {
-            //console.log(`В игру врывается ${entity.name.kto} c ${entity.health} здоровья и ${entity.damage} урона!`);
+            printText(`В игру врывается ${entity.name.kto} c ${entity.health} здоровья и ${entity.damage} урона!`);
         }
         this.entities.push(entity);
     }
@@ -27,29 +28,30 @@ export class Arena {
                 return;
             }
         }
-        console.log(`[ОШИБКА] Существо с именем ${target.name.kto} (${target.uid}) не было найдено!`);
+        printText(`[ОШИБКА] Существо с именем ${target.name.kto} (${target.uid}) не было найдено!`);
     }
 
-    doLoop() {
-        if (this.entities.length > 1) {
-            //console.log(`АРЕНА: НАЧАЛСЯ ЦИКЛ ${this.loop}`)
-            for (const entity of this.entities) {
-                entity.doAction();
-            }
+    async doLoop() {
+        // if (this.entities.length > 1) {
+        //     //console.log(`АРЕНА: НАЧАЛСЯ ЦИКЛ ${this.loop}`)
+        // }
+
+        for (const entity of this.entities) {
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    entity.doAction();
+                    window.scrollTo(0, document.body.scrollHeight);
+                    resolve("готово!")
+                }, 1000)
+            });
         }
+
         this.loop++;
     }
 
     getRandomEntity(exclude?: Entity[]): Entity | null {
         let entities = this.entities.slice();
         if (exclude) {
-            // for (let i = 0; i < entities.length; i++) {
-            //     let entity = entities[i];
-            //     let excluder = exclude.find(item => item.uid == entity.uid);
-            //     if (excluder) {
-            //         entities.splice(i, 1);
-            //     }
-            // }
             entities = this.entities.filter(entity => {
                 let excluder = exclude.find(item => item.uid == entity.uid)
                 return Boolean(!excluder);
