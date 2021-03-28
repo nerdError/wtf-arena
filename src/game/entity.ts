@@ -1,4 +1,4 @@
-import { bool, choose, randomInt } from "./utils/random";
+import { bool, choose, randomInt, spliceStr } from "./utils/random";
 import { Arena } from "./arena";
 import { insults } from "../app";
 
@@ -39,6 +39,11 @@ export class Entity {
     }
 
     doAction() {
+        // ПРОПУСК
+        if (bool(5)) {
+            return;
+        }
+
         // РЕБЁНОК
         if (bool(1)) {
             let parent = this.arena.getRandomEntity([this])!;
@@ -46,10 +51,8 @@ export class Entity {
             //console.log(parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2)));
             for (let key in this.name) {
                 let value = this.name[key as keyof EntityName];
-                //(<any>name)[key] = value + " " + parent.name.surname;
-                (<any>name)[key] = "Микро-" + value;
+                (<any>name)[key] = spliceStr(value, value.indexOf(">")+1, 0, "Микро-");
                 //todo (<any>name)[key] = parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2))
-
             }
             console.log(`${this.name.kto} родил сына от ${parent.name.otKogo}, которого зовут ${name.kto}!`);
             this.arena.addEntity(new Entity(this.arena, Math.round(this.health / 2), Math.round(this.damage / 2), name), false);
@@ -92,7 +95,7 @@ export class Entity {
         if (bool(10)) {
             let heal = randomInt(this.baseHealth * 0.7) + 1;
             this.health += heal;
-            console.log(`${this.name.kto} полечился и получил ${heal} здоровья (всего: ${this.health})`);
+            //console.log(`${this.name.kto} полечился и получил ${heal} здоровья (всего: ${this.health})`);
         }
 
         // ПОБЕГ
@@ -112,7 +115,11 @@ export class Entity {
         // ВСПОМНИЛ И ЗАПЛАКАЛ
         if (bool(1) && this.arena.died.length > 0) {
             let died = choose(this.arena.died)
-            console.log(`${this.name.kto}: "${died.name.kto}, как жаль что ты не дожил до этого"`);
+            let text = choose([
+                "как жаль что",
+                "слава богу"
+            ])
+            console.log(`${this.name.kto}: "${died.name.kto}, ${text} ты не дожил до этого"`);
         }
 
         // АТАКА
@@ -146,7 +153,11 @@ export class Entity {
         if (this.health <= 0) {
             if (bool(20)) {
                 let insult = choose(insults);
-                console.log(`${this.name.kto}: "Я верил тебе, ${attacker.name.kto}, а ты оказался ${insult.kem}"`);
+                let text = choose([
+                    `Я верил тебе, ${attacker.name.kto}, а ты оказался ${insult.kem}`,
+                    `${attacker.name.kto}, я так и знал, что ты ${insult.kto}`
+                ])
+                console.log(`${this.name.kto}: "${text}"`);
             }
             console.log(`${attacker.name.kto} убил ${this.name.kogo}, нанеся ${damage} урона`);
 

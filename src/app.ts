@@ -1,6 +1,7 @@
-import { bool, choose, randomIntRange } from "./game/utils/random";
+import { bool, choose, randomIntRange, shuffle } from "./game/utils/random";
 import { Entity, EntityName, Insult } from "./game/entity";
 import { Arena } from "./game/arena";
+import Color = require("color");
 const json: {
     names: { [key: string]: EntityName },
     insults: { [key: string]: Insult }
@@ -13,11 +14,11 @@ let text: HTMLLabelElement;
 const backConsoleLog = console.log;
 
 console.log = (...data: any[]) => {
-    backConsoleLog(...data);
-    //text.innerText += data.toString() + "\n";
+    //backConsoleLog(...data);
     let subDiv = document.createElement('div');
     let label = document.createElement('label');
-    label.innerText = data.toString();
+    //label.innerHTML = data.toString();
+    label.innerHTML = `<p>${data.toString()}</p>`;
 
     subDiv.appendChild(label);
     div.appendChild(subDiv);
@@ -27,14 +28,12 @@ export let insults: Insult[] = [];
 export let names: EntityName[] = []
 //export let items: Item[] = [];
 
-const version = "2:20, 28.03.2021"
+const version = "2:35, 28.03.2021"
 
 
 export function main() {
-    //todo refactor?
     text = document.getElementById("text") as HTMLLabelElement;
     div = document.getElementById("div") as HTMLDivElement;
-
 
     let versionText = document.createElement('label');
     versionText.id = "version";
@@ -48,13 +47,24 @@ export function main() {
         insults.push(Object.assign({ kto: key }, value));
     }
 
+    let h = 0;
+
     for (const key in json.names) {
         const value = json.names[key];
-        names.push(Object.assign({ kto: key }, value));
+        let name = Object.assign({ kto: key }, value);
+        for (const nameKey in name) {
+            const nameValue = name[nameKey as keyof EntityName];
+            let s = "#bb9292";
+            let color = Color.hsv([h, 25, 90])
+            name[nameKey as keyof EntityName] = `<b style="color: ${color}">${nameValue}</b>`
+        }
+
+        names.push(name);
+        h += 350/Object.values(json.names).length;
     }
 
     let arena = new Arena();
-    let baseHealth = 5;
+    let baseHealth = 10;
     let baseDamage = 3;
 
     for (const name of names) {
