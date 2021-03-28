@@ -28,7 +28,7 @@ export let insults: Insult[] = [];
 export let names: EntityName[] = []
 //export let items: Item[] = [];
 
-const version = "2:35, 28.03.2021"
+const version = "3:20, 28.03.2021"
 
 
 export function main() {
