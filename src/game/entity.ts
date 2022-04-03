@@ -40,18 +40,51 @@ export class Entity {
 
     doAction() {
         // ПРОПУСК
-        if (bool(5)) {
+        if (bool(10)) {
+            let text = `${this.name.kto} решил пока отдохнуть`;
+            if (bool(30)) {
+                let action = choose([
+                    "поиграть в маинкрафт",
+                    "почитать мангу",
+                    "посмотреть хентай",
+                    "посмотреть джоджо",
+                    "посмотреть аниме",
+                    "пожарить сосисоны",
+                    "пособирать лего",
+                ]);
+
+                text += ` и ${action}.`;
+            }
+            else text += ".";
+
+            let additionalText = "";
+            if (bool(30)) {
+                let budy = this.arena.getRandomEntity([this])!;
+                text += ` К нему присоединился ${budy.name.kto}.`          
+            
+                additionalText = choose([
+                    "Пиздец...",
+                    "Это было ужасно.",
+                    "Они отлично поладили.",
+                    "Странно, но всё прошло хорошо.",
+                    "Надеюсь, это больше не повторится..",
+                ]);   
+            }
+
+            printText(text);
+            if (additionalText.length > 0) printText(additionalText);
             return;
         }
 
         // РЕБЁНОК
-        if (bool(2)) {
+        if (bool(1)) {
             let parent = this.arena.getRandomEntity([this])!;
             let name: EntityName = JSON.parse(JSON.stringify(this.name));
             //printText(parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2)));
             for (let key in this.name) {
                 let value = this.name[key as keyof EntityName];
                 (<any>name)[key] = spliceStr(value, value.indexOf(">")+1, 0, "Микро-");
+                // (<any>name)[key] = parent.name.kto + " " + this.name.surname;
                 //todo (<any>name)[key] = parent.name.kto.substr(Math.floor(parent.name.kto.length/2)) + this.name.kto.substr(Math.floor(parent.name.kto.length/2))
             }
             printText(`${this.name.kto} родил сына от ${parent.name.otKogo}, которого зовут ${name.kto}!`);
@@ -72,9 +105,9 @@ export class Entity {
         }
 
         // СУИЦИД
-        if (bool(4)) {
+        if (bool(2)) {
             // УДАЛОСЬ ЛИ СОВЕРШИТЬ
-            if (bool(50)) {
+            if (bool(10)) {
                 printText(`${this.name.komu} удалось убить себя :(`);
 
                 let didRevive = bool(15);
@@ -121,7 +154,7 @@ export class Entity {
             let died = choose(this.arena.died)
             let text = choose([
                 "как жаль что",
-                "слава богу"
+                "слава богу",
             ])
             printText(`${this.name.kto}: "${died.name.kto}, ${text} ты не дожил до этого"`);
             return;

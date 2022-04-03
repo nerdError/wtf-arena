@@ -57,7 +57,7 @@ export async function main() {
         let name = Object.assign({ kto: key }, value);
         for (const nameKey in name) {
             const nameValue = name[nameKey as keyof EntityName];
-            let s = "#ad9696";
+            // let s = "#ad9696";
             let color = Color.hsv([h, 15, 90]); //[h, 25, 90]
             name[nameKey as keyof EntityName] = `<b style="color: ${color}">${nameValue}</b>`
         }

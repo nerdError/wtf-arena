@@ -69,112 +69,187 @@
       "komu": "Лёхе",
       "otKogo": "Лёхи",
       "oKom": "Лёхе",
-      "surname": "Лёхович"
+      "surname": "Лёхович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Паша": {
       "kogo": "Пашу",
       "komu": "Паше",
       "otKogo": "Паши",
       "oKom": "Паше",
-      "surname": "Пашович"
+      "surname": "Пашович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Гриша": {
       "kogo": "Гришу",
       "komu": "Грише",
       "otKogo": "Гриши",
       "oKom": "Грише",
-      "surname": "Гришович"
+      "surname": "Гришович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Елисей": {
       "kogo": "Елисея",
       "komu": "Елисею",
       "otKogo": "Елисея",
       "oKom": "Елисее",
-      "surname": "Елисеевич"
+      "surname": "Елисеевич",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Путин": {
       "kogo": "Путина",
       "komu": "Путину",
       "otKogo": "Путина",
       "oKom": "Путине",
-      "surname": "Путинович"
+      "surname": "Путинович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Навальный": {
       "kogo": "Навального",
       "komu": "Навальному",
       "otKogo": "Навального",
       "oKom": "Навальном",
-      "surname": "Навальнович"
+      "surname": "Навальнович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Серафим": {
       "kogo": "Серафима",
       "komu": "Серафиму",
       "otKogo": "Серафима",
       "oKom": "Серафиме",
-      "surname": "Серафимович"
+      "surname": "Серафимович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Куплинов": {
       "kogo": "Куплинова",
       "komu": "Куплинову",
       "otKogo": "Куплинова",
       "oKom": "Куплинове",
-      "surname": "Куплинович"
+      "surname": "Куплинович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Саня": {
       "kogo": "Саню",
       "komu": "Сане",
       "otKogo": "Сани",
       "oKom": "Сане",
-      "surname": "Санёвич"
+      "surname": "Санёвич",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Юлик": {
       "kogo": "Юлика",
-      "komu": "Юлика",
+      "komu": "Юлику",
       "otKogo": "Юлика",
       "oKom": "Юлике",
-      "surname": "Юлич"
+      "surname": "Юлиьевич",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Горшок": {
       "kogo": "Горшка",
       "komu": "Горшку",
       "otKogo": "Горшка",
       "oKom": "Горшке",
-      "surname": ""
+      "surname": "Горшокович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Гитлер": {
       "kogo": "Гитлера",
       "komu": "Гитлеру",
       "otKogo": "Гитлера",
       "oKom": "Гитлере",
-      "surname": ""
+      "surname": "Гитлерович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Сталин": {
       "kogo": "Сталина",
       "komu": "Сталину",
       "otKogo": "Сталина",
       "oKom": "Сталине",
-      "surname": ""
+      "surname": "Сталинович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Обэма": {
       "kogo": "Обэму",
       "komu": "Обэме",
       "otKogo": "Обэмы",
       "oKom": "Обэме",
-      "surname": ""
+      "surname": "Обэмевич",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Димон": {
       "kogo": "Димона",
       "komu": "Димону",
       "otKogo": "Димона",
       "oKom": "Димоне",
-      "surname": ""
+      "surname": "Димонович",
+
+      "personality": {
+        "sex": "male"
+      }
     },
     "Эминем": {
       "kogo": "Эминема",
       "komu": "Эминему",
       "otKogo": "Эминема",
       "oKom": "Эминеме",
-      "surname": ""
+      "surname": "Эминемович",
+
+      "personality": {
+        "sex": "male"
+      }
+    },
+    "Кристина": {
+      "kogo": "Кристину",
+      "komu": "Кристине",
+      "otKogo": "Кристины",
+      "oKom": "Кристине",
+      "surname": "Кристинович",
+
+      "personality": {
+        "sex": "female"
+      }
     }
   }
 }
